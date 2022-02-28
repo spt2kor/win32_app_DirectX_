@@ -1,0 +1,31 @@
+struct VOut
+{
+    float4 position : SV_POSITION;
+    float4 color : COLOR;
+};
+
+VOut VShader(float4 position : POSITION, float4 color : COLOR)
+{
+    VOut output;
+
+    output.position = position;
+    output.color = color;
+
+    return output;
+}
+
+
+float4 PShader(float4 position : SV_POSITION, float4 color : COLOR) : SV_TARGET
+{
+	float4 colorOut;
+	colorOut.r = 0.8;
+	colorOut.g = 0.8;
+	colorOut.b = 0.8;
+	colorOut.a = 0.0;
+	if( (position.x > 300) && (position.x < 500) )
+	{
+		colorOut.r = 0.5;
+		colorOut.b = (position.x -300)/(500 -300);
+	}
+    return colorOut;
+}
